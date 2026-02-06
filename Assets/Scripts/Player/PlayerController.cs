@@ -4,27 +4,53 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // 이동
     [SerializeField] private float moveSpeed;
     private Animator anim;
+    private Rigidbody2D rb;
+    Vector2 inputDir;
+
+    //
+    bool canInteract = false;
+    NPC currentNPC = null;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        float inputX = Input.GetAxis("Horizontal");
-        float inputY = Input.GetAxis("Vertical");
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
 
-        if (inputX != 0 || inputY != 0)
-            anim.SetBool("isMove", true);
-        else
-            anim.SetBool("isMove", false);
+        inputDir = new Vector2(inputX, inputY);
 
+        anim.SetBool("isMove", inputDir != Vector2.zero);
         anim.SetFloat("MoveX", inputX);
         anim.SetFloat("MoveY", inputY);
 
-        transform.Translate(new Vector2(inputX, inputY) * moveSpeed * Time.deltaTime);
+        if (!canInteract) return;
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            currentNPC?.Interact();
+        }
+    }
+    void FixedUpdate()
+    {
+        Vector2 dir = inputDir.normalized;
+        rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("NPC"))
+        {
+            Debug.Log("NPC 범위 들어옴");
+            currentNPC = collision.GetComponent<NPC>();
+            canInteract = true;
+        }
     }
 }
