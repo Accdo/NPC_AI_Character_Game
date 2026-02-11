@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    public GameObject TalkPanel;
-
     void Start()
     {
         
@@ -20,6 +18,6 @@ public class NPC : MonoBehaviour
     {
         Debug.Log("NPC와 상호작용!");
 
-        TalkPanel.SetActive(true);
+        DialogueUIManager.Instance.OpenDialogue(this);
     }
 }

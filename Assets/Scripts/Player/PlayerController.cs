@@ -6,11 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     // 이동
     [SerializeField] private float moveSpeed;
+    public bool canMove = true;
     private Animator anim;
     private Rigidbody2D rb;
     Vector2 inputDir;
 
-    //
+    // NPC 상호작용
     bool canInteract = false;
     NPC currentNPC = null;
 
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!canMove) return;
+
         float inputX = Input.GetAxisRaw("Horizontal");
         float inputY = Input.GetAxisRaw("Vertical");
 
@@ -42,6 +45,11 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 dir = inputDir.normalized;
         rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void SetMovement(bool value)
+    {
+        canMove = value;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

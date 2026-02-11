@@ -32,5 +32,6 @@ public class NPCDialogueController : MonoBehaviour
     {
         Debug.Log("NPC 응답: " + response);
         // 👉 여기서 대화 UI에 출력
+        DialogueUIManager.Instance.ShowDialogue(response);
     }
 }
