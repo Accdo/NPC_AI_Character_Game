@@ -54,15 +54,17 @@ public class DialogueUIManager : MonoBehaviour
     public void OpenDialogue(NPC npc)
     {
         currentNPC = npc;
-        TalkPanel.SetActive(true);
+        currentNPC.ActiveInteractionUI(false);
 
-        Debug.Log("플레이어 이동 비활성화");
+        TalkPanel.SetActive(true);
         player.SetMovement(false);
     }
 
     public void CloseDialogue()
     {
+        currentNPC.ActiveInteractionUI(true);
         currentNPC = null;
+
         TalkPanel.SetActive(false);
         player.SetMovement(true);
     }

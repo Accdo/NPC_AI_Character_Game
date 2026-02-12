@@ -54,11 +54,24 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("NPC"))
+        if (collision.CompareTag("NPC"))
         {
             Debug.Log("NPC 범위 들어옴");
             currentNPC = collision.GetComponent<NPC>();
+            currentNPC.ActiveInteractionUI(true);
+
             canInteract = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("NPC"))
+        {
+            Debug.Log("NPC 범위 나감");
+            currentNPC.ActiveInteractionUI(false);
+            currentNPC = null;
+
+            canInteract = false;
         }
     }
 }

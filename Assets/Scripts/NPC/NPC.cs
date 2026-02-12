@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    public GameObject interactionUI;
 
-    void Update()
-    {
-
-    }
-    
     public void Interact()
     {
         Debug.Log("NPC와 상호작용!");
 
         DialogueUIManager.Instance.OpenDialogue(this);
+    }
+
+    public void ActiveInteractionUI(bool isActive)
+    {
+        interactionUI.SetActive(isActive);
     }
 }
