@@ -15,6 +15,7 @@ public class DialogueUIManager : MonoBehaviour
 
     // NPC 대화 텍스트 관련
     private NPC currentNPC;
+    public NPCDialogueController currentNPCDialogueCon;
 
     public TextMeshProUGUI dialogueText;
     public float typingSpeed = 0.03f;
@@ -54,6 +55,7 @@ public class DialogueUIManager : MonoBehaviour
     public void OpenDialogue(NPC npc)
     {
         currentNPC = npc;
+        currentNPCDialogueCon = npc.NPCDialogueCon;
         currentNPC.ActiveInteractionUI(false);
 
         TalkPanel.SetActive(true);
@@ -64,6 +66,7 @@ public class DialogueUIManager : MonoBehaviour
     {
         currentNPC.ActiveInteractionUI(true);
         currentNPC = null;
+        currentNPCDialogueCon = null;
 
         TalkPanel.SetActive(false);
         player.SetMovement(true);

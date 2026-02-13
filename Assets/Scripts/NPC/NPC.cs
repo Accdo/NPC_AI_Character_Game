@@ -5,6 +5,7 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     public GameObject interactionUI;
+    public NPCDialogueController NPCDialogueCon;
 
     public void Interact()
     {

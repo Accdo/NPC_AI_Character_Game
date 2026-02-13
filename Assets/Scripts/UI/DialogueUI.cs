@@ -7,7 +7,6 @@ using TMPro;
 public class DialogueUI : MonoBehaviour
 {
     public TMP_InputField inputField;
-    public NPCDialogueController npc;
 
     private void OnEnable()
     {
@@ -24,7 +23,7 @@ public class DialogueUI : MonoBehaviour
     {
         if (string.IsNullOrWhiteSpace(text)) return;
 
-        npc.TalkToNPC(text);
+        DialogueUIManager.Instance.currentNPCDialogueCon.TalkToNPC(text);
         inputField.text = "";
         inputField.ActivateInputField(); // 다시 포커스
     }
@@ -34,6 +33,6 @@ public class DialogueUI : MonoBehaviour
         string text = inputField.text;
         inputField.text = "";
 
-        npc.TalkToNPC(text);
+        DialogueUIManager.Instance.currentNPCDialogueCon.TalkToNPC(text);
     }
 }
